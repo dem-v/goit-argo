@@ -1,0 +1,16 @@
+tracking:
+  service:
+    type: ClusterIP
+
+run:
+  enabled: false
+
+minio:
+  enabled: false
+
+postgresql:
+  enabled: true
+  auth:
+    username: mlflow
+    password: mlflow
+    database: mlflow
