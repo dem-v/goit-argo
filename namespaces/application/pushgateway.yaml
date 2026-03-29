@@ -1,20 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mlflow
+  name: prometheus-pushgateway
   namespace: infra-tools
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: mlflow
-    targetRevision: "*"
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: prometheus-pushgateway
+    targetRevision: 2.14.0
     helm:
-      valueFiles:
-        - values.yaml
+      valuesObject:
+        service:
+          type: ClusterIP
+          port: 9091
   destination:
     server: https://kubernetes.default.svc
-    namespace: application
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true

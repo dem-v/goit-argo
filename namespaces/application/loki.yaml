@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: infra-tools
+spec:
+  destination:
+    namespace: infra-tools
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: loki-stack
+    targetRevision: 2.9.10
+    helm:
+      valuesObject:
+        grafana:
+          enabled: false   # ❌ не ставимо Grafana з цього чарта
+          sidecar:
+            datasources:
+              enabled: false   # ❌ не створювати Loki datasource
+        prometheus:
+          enabled: false   # ❌ Prometheus уже є в kube-prometheus-stack
+        loki:
+          persistence:
+            enabled: false  # логи зберігаються тільки в пам’яті
+        promtail:
+          enabled: true    # ✅ агент, що збирає логи з подів/нод
+          tolerations:
+            - key: usage
+              operator: Equal
+              value: infrastructure
+              effect: NoSchedule
+        test:
+          enabled: false   # ❌ не створювати тестовий ConfigMap з bash-скриптом
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
