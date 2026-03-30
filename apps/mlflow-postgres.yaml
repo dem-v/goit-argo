@@ -16,6 +16,10 @@ spec:
       valuesObject:
         global:
           imageRegistry: registry.bitnami.com
+          security:
+            allowInsecureImages: true
+        image:
+          registry: registry.bitnami.com
         auth:
           username: mlflow
           password: mlflowpass
