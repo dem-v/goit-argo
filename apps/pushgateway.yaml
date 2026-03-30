@@ -14,6 +14,9 @@ spec:
         service:
           type: ClusterIP
           port: 9091
+        serviceMonitor:
+          enabled: true
+          namespace: infra-tools
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
