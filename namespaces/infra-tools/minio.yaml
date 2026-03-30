@@ -14,6 +14,8 @@ spec:
     targetRevision: "*"
     helm:
       valuesObject:
+        mode: standalone
+        replicas: 1
         rootUser: minio
         rootPassword: minio123
         buckets:
