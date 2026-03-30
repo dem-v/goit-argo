@@ -11,15 +11,9 @@ spec:
   source:
     repoURL: registry-1.docker.io/bitnamicharts
     chart: postgresql
-    targetRevision: 16.4.4
+    targetRevision: "*"
     helm:
       valuesObject:
-        global:
-          imageRegistry: registry.bitnami.com
-          security:
-            allowInsecureImages: true
-        image:
-          registry: registry.bitnami.com
         auth:
           username: mlflow
           password: mlflowpass
