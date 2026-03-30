@@ -32,6 +32,11 @@ spec:
             serviceMonitorSelector: {}
             serviceMonitorSelectorNilUsesHelmValues: false
             retention: 2d
+            resources:
+              limits:
+                memory: 512Mi
+              requests:
+                memory: 256Mi
         kubelet:
           enabled: true
           serviceMonitor:
@@ -43,10 +48,20 @@ spec:
           alertmanagerSpec:
             forceEnableClusterMode: true
             configSecret: alertmanager-secret
+            resources:
+              limits:
+                memory: 128Mi
+              requests:
+                memory: 64Mi
         grafana:
           ingress:
             enabled: false
           adminPassword: prom-operator
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 128Mi
         prometheusOperator:
           admissionWebhooks:
             enabled: false
