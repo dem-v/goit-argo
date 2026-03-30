@@ -14,6 +14,8 @@ spec:
     targetRevision: 16.4.4
     helm:
       valuesObject:
+        global:
+          imageRegistry: registry.bitnami.com
         auth:
           username: mlflow
           password: mlflowpass
