@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aiops-inference
+  namespace: infra-tools
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dem-v/goit-mlops.git
+    targetRevision: final-project
+    path: aiops-quality-project/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: application
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
